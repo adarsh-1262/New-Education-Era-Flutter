@@ -65,32 +65,8 @@ class Utils {
     await prefs.setString('printerSettings', settingsJson);
   }
 
-  // load Store Setting Data
-  static Future<Map<String, dynamic>?> loadStoreSettingsFromPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey('printerSettings')) {
-      String settingsJson = prefs.getString('printerSettings')!;
-      Map<String, dynamic> settingsData = jsonDecode(settingsJson);
-      print("settingsDataSharedPref: $settingsData");
-      return settingsData;
-    }
-    return null;
-  }
-
-  // Invoice selection color
-  static Future<void> saveSelectedColor(String colorCode) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedColorCode', colorCode);
-    print("Invoice Saved Color: ${prefs.toString()}");
-  }
-
-  // Invoice get saved color
- 
-
-  // format currency
   
-
-  // open whatsapp
+  
   static launchWhatsapp(String mobile, String message) async {
     // check if  whatsapp & whatsapp business is installed or not
     // if (await canLaunchUrl(Uri.parse("whatsapp://send?phone=$mobile"))) {
@@ -155,42 +131,6 @@ class Utils {
     );
   }
 
-
-  static Map<String, dynamic> assignedPermissions = {};
-
-  /*static checkForPermission(
-      {required String permission, required String type}) {
-    print("user type");
-    print(permission);
-    print(type);
-    print(WebXConfig.userType);
-    if (WebXConfig.userType == "STAFF") {
-      return checkAssignedPermission(permission: permission, type: type);
-    } else if (WebXConfig.userType == "MANAGER") {
-      return checkAssignedPermission(permission: permission, type: type);
-    } else {
-      return true;
-    }
-  }*/
-
- 
-
-  // staff permission feature
-  static bool checkAssignedPermission(
-      {required String permission, required String type}) {
-    print("assignedPermissions");
-    print(assignedPermissions);
-    if (assignedPermissions.isEmpty) {
-      return false;
-    }
-    if (assignedPermissions[permission] == null) {
-      return false;
-    }
-    if (assignedPermissions[permission]![type] == null) {
-      return false;
-    }
-    return assignedPermissions[permission]?[type] ?? false;
-  }
 
   // show loading
   static void showLoading() {

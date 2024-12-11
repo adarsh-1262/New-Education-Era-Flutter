@@ -3,7 +3,7 @@ import 'package:learnly/components/courses.dart';
 
 class CourseController extends GetxController {
   // Observable list of courses
-  final _courseList = [
+  var _courseList = [
     Course(
   courseName: 'Physics',
   courseCode: 'PHY101',

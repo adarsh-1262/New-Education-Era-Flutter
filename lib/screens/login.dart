@@ -26,60 +26,76 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Expanded(flex: 1,
-          child: Container(height: MediaQuery.of(context).size.height/3,
-            child: Center(child: Column(
-          mainAxisAlignment:MainAxisAlignment.center,
-          children: [
-            Card(elevation: 10,
-            shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
-  ),
-              child: Container(child: Image.asset('assets/images/logo.jpg',scale: 3,))),
-            AnimatedTextKit(animatedTexts: [TypewriterAnimatedText('Learnly',textStyle:TextStyle(fontSize: 48,fontWeight:FontWeight.bold))],),
-          ],
-        )),
-          decoration:BoxDecoration(gradient:LinearGradient(colors: [Colors.pink,Colors.orange,Colors.red])) ,
-          ),),
-        SizedBox(height: 30,),
-        TextField(controller: email,
-          decoration: InputDecoration(labelText: 'Enter Email',border: OutlineInputBorder()
-        )),
-        SizedBox(height: 30,),
-        TextField(controller: password,
-        obscureText: true,
-          decoration: InputDecoration(labelText: 'Enter Password',border: OutlineInputBorder())),
-        SizedBox(height: 20,),
-        Button(name:'Login',onTap: ()async{
-        try {final user = await authService.signIn(
-                  email.text,
-                  password.text,
-                );
-                if (user != null) {
-                  print("Sign-up successful: ${user.email}");
-                  Get.to(Home());
-                }} on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    print('No user found for that email.');
-  } else if (e.code == 'wrong-password') {
-    print('Wrong password provided for that user.');
-  }}},color: Color.fromARGB(255, 33, 200, 21),),
-
-         
-        SizedBox(height:10 ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Need to Register ?'),
-            SizedBox(width: 20,),
-            InkWell(child: Text('Register',style: TextStyle(
-              color: Colors.red
-            ),),onTap: (){Get.to(RegisterScreen());},)
-          ],
-        )
-      
-      ],),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 50,),
+            Container(height: MediaQuery.of(context).size.height/3,
+              child: Center(child: Column(
+            mainAxisAlignment:MainAxisAlignment.center,
+            children: [
+              Card(elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+                child: Container(child: Image.asset('assets/images/logo.jpg',scale: 3,))),
+              
+              AnimatedTextKit(animatedTexts: [TypewriterAnimatedText('Learnly',textStyle:TextStyle(fontSize: 48,fontWeight:FontWeight.bold))],),
+            ],
+                    )),
+            decoration:BoxDecoration(gradient:LinearGradient(colors: [Colors.pink,Colors.orange,Colors.red])) ,
+            ),
+            SizedBox(height:100,),
+            
+            TextField(controller: email,
+              decoration: InputDecoration(labelText: 'Enter Email',border: OutlineInputBorder(),hintText: 'xyz@gmail.com'
+            )),
+            SizedBox(height: 30,),
+            TextField(controller: password,
+            obscureText: true,
+              decoration: InputDecoration(labelText: 'Enter Password',border: OutlineInputBorder(),hintText: 'atleast 6 characters')),
+            SizedBox(height: 20,),
+            Button(name:'Login',onTap: ()async{
+            try {final user = await authService.signIn(
+                      email.text,
+                      password.text,
+                    );
+                    if (user != null) {
+                      print("Sign-In successful: ${user.email}");
+                      Get.snackbar('Login Successful',"",dismissDirection: DismissDirection.horizontal);
+                       Get.to(Home());
+                    }} on FirebaseAuthException catch (e) {
+            if (e.code == 'user-not-found') {
+              print('No user found for that email.');
+              Get.snackbar('No user found with provided email',"");
+            } else if (e.code == 'wrong-password') {
+              print('Wrong password provided for that user.');
+          Get.snackbar('No user found with provided email',"");
+            }
+            }
+            catch(e){Get.snackbar('Some Error Occured' ,e.toString());}
+            },color: Color.fromARGB(255, 33, 200, 21),),
+          
+             
+            SizedBox(height:10 ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Need to Register ?'),
+                SizedBox(width: 20,),
+                InkWell(child: Text('Register',style: TextStyle(
+                  color: Colors.red
+                ),),onTap: (){Get.to(RegisterScreen());},)
+              ],
+            )
+          
+          ],),
+        ),
+      ),
     );
   }
 

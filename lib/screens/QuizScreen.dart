@@ -60,13 +60,16 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Center(
-            child: Text(
-              Q.getQues(),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white),
+            child: Card(
+              shadowColor: Colors.grey,
+              child: Text(
+                Q.getQues(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
             ),
           ),
         ),

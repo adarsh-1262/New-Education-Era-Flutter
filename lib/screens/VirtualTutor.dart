@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class VirtualClassesScreen extends StatelessWidget {
+
   final List<ClassDetails> classes = [
     ClassDetails(
         tutorName: "John Doe",
@@ -59,39 +61,51 @@ class ClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              classDetails.subject,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
+    return GestureDetector(
+      onTap: (){showDialog(context: context, builder:(BuildContext context)
+      {return AlertDialog(
+        content: Text('You want to register for this tutor?'),
+        actions: [TextButton(onPressed:(){}, child: Text('Confirm')),
+        TextButton(onPressed:(){Get.back();}, child:Text('Cancel'))
+        ],
+
+      );}
+      );},
+      child: Card(
+        color: Colors.grey[700],
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                classDetails.subject,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
               ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              "Tutor: ${classDetails.tutorName}",
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 4),
-            Text(
-              "Timing: ${classDetails.timing}",
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 4),
-            Text(
-              "Venue: ${classDetails.venue}",
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
+              SizedBox(height: 8),
+              Text(
+                "Tutor: ${classDetails.tutorName}",
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "Timing: ${classDetails.timing}",
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "Venue: ${classDetails.venue}",
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
         ),
       ),
     );

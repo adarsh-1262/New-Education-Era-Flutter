@@ -58,11 +58,14 @@ class RegisterScreen extends StatelessWidget {
 }} on FirebaseAuthException catch (e) {
   if (e.code == 'weak-password') {
     print('The password provided is too weak.');
+    Get.snackbar('Password Error','Password is too weak');
   } else if (e.code == 'email-already-in-use') {
     print('The account already exists for that email.');
+    Get.snackbar('Account already exists with this email','');
   }
 } catch (e) {
   print(e);
+  Get.snackbar('Some error Occured','Kindly try login again');
 }}),
     
         SizedBox(height:10 ,),

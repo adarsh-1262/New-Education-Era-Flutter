@@ -5,6 +5,8 @@ import 'package:learnly/components/courses.dart';
 import 'package:learnly/controller/coursecontr.dart';
 import 'package:learnly/screens/QuizScreen.dart';
 import 'package:learnly/screens/VirtualTutor.dart';
+import 'package:learnly/screens/contactus.dart';
+import 'package:learnly/screens/goalScreen.dart';
 import 'package:learnly/screens/motivation.dart';
 import 'package:learnly/screens/profile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -107,8 +109,9 @@ class _HomeState extends State<Home> {
   
   Widget _buildJobOpportunities() {
     List<String> items=['Scholarships','Motivational Contents',
-    'Grants','Community Forums','Online Tutoring',
-    'Loans','FAQs'];
+    'Meditation','Community Forums','Online Tutoring',
+    'Stay healthy',
+    'Events','Competitons','FAQs'];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -206,10 +209,10 @@ class _HomeState extends State<Home> {
              Divider(thickness: 1,),
             ListTile(title:Text('Offline Content'),leading:Icon(Icons.download),onTap:(){}),
              Divider(thickness: 1,),
-              ListTile(title:Text('Contact Us'),leading: Icon(Icons.mail),onTap: (){
-    
+              ListTile(title:Text('Contact Us'),leading: Icon(Icons.mail),onTap: (){Get.to(ContactScreen());  
   },),
   Divider(thickness: 2,color:Colors.black12,),
+  ListTile(title: Text('Goals'),onTap: (){Get.to(GoalsPage());},),
   ListTile(title: Text('About Us'),onTap:(){Get.defaultDialog(title: "LearnLy",
                       titleStyle: const TextStyle(fontSize: 20),
                       content: const Padding(

@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnly/Utils.dart';
 
 class AuthService {
@@ -15,6 +17,7 @@ class AuthService {
       return userCredential.user;
     } catch (e) {
       print("Error signing up: $e");
+      Get.snackbar('Error Signing up', e.toString());
       return null;
     }
   }
@@ -30,6 +33,7 @@ Future<User?> signIn(String email, String password) async {
   } catch (e) {
   
     print("Error signing in: $e");
+    Get.snackbar('Error signing in',e.toString(),backgroundColor: Colors.grey);
     return null;
   }
 }
