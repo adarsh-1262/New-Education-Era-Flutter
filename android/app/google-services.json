@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "232322109882",
+    "project_id": "learnly-f6e2d",
+    "storage_bucket": "learnly-f6e2d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232322109882:android:352fbf715f1ceaabeb8d83",
+        "android_client_info": {
+          "package_name": "com.example.learnly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe75K12bLbENW7Nxm1cmNHe8dQ7jAolQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
