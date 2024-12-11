@@ -18,21 +18,31 @@ class MotivationalScreen extends StatefulWidget {
 }
 
 class _MotivationalScreenState extends State<MotivationalScreen> {
-  final List<String> quotes = [
-    "The only way to do great work is to love what you do. - Steve Jobs",
-    "Success is not the key to happiness. Happiness is the key to success.",
-    "Don’t watch the clock; do what it does. Keep going.",
-    "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
-    "Hard work beats talent when talent doesn’t work hard."
-  ];
+  final Map<String, List<String>> quotes = {
+    "Motivational": [
+      "The only way to do great work is to love what you do. - Steve Jobs",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+      "Hard work beats talent when talent doesn’t work hard.",
+      "Success usually comes to those who are too busy to be looking for it."
+    ],
+    "Educational": [
+      "Education is the most powerful weapon which you can use to change the world. - Nelson Mandela",
+      "Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi",
+      "An investment in knowledge pays the best interest. - Benjamin Franklin",
+      "The beautiful thing about learning is that nobody can take it away from you. - B.B. King",
+      "Education is not preparation for life; education is life itself. - John Dewey"
+    ],
+  };
 
   final Random random = Random();
-
-  String currentQuote = "Tap the button for motivation!";
+  String currentCategory = "Motivational";
+  String currentQuote = "Tap the button to get inspired!";
 
   void changeQuote() {
     setState(() {
-      currentQuote = quotes[random.nextInt(quotes.length)];
+      final categoryQuotes = quotes[currentCategory]!;
+      currentQuote = categoryQuotes[random.nextInt(categoryQuotes.length)];
     });
   }
 
@@ -41,7 +51,7 @@ class _MotivationalScreenState extends State<MotivationalScreen> {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
       appBar: AppBar(
-        title: Text("Motivational Screen"),
+        title: Text("Motivational & Educational Quotes"),
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
       ),
@@ -51,11 +61,6 @@ class _MotivationalScreenState extends State<MotivationalScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              /*Image.asset(
-                'assets/motivation.png', // Add a motivational image in your assets folder
-                height: 200,
-                width: 200,
-              ),*/
               SizedBox(height: 20),
               Text(
                 currentQuote,
@@ -67,6 +72,23 @@ class _MotivationalScreenState extends State<MotivationalScreen> {
                 ),
               ),
               SizedBox(height: 30),
+              DropdownButton<String>(
+                value: currentCategory,
+                items: quotes.keys.map((category) {
+                  return DropdownMenuItem(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    currentCategory = value!;
+                    currentQuote =
+                        "Tap the button to get inspired by $currentCategory quotes!";
+                  });
+                },
+              ),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: changeQuote,
                 style: ElevatedButton.styleFrom(

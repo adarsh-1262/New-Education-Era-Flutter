@@ -2,124 +2,125 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnly/quiz/Quiz.dart';
 
-class QuizPage extends StatefulWidget {
+class QuizApp extends StatefulWidget {
   @override
-  State<QuizPage> createState() => _QuizPageState();
+  _QuizAppState createState() => _QuizAppState();
 }
 
-class _QuizPageState extends State<QuizPage> {
-  List<Icon> sc = [];
-  int score=0;
-  quizz Q = quizz();
-  void checkAnswer(bool userPickedAnswer) {
-    bool correctAnswer = Q.getanswer();
+class _QuizAppState extends State<QuizApp> {
+  final Quiz quiz = Quiz();
 
-    setState(() {
-      //TODO: Step 4 - Use IF/ELSE to check if we've reached the end of the quiz. If so,
-      //On the next line, you can also use if (quizBrain.isFinished()) {}, it does the same thing.
-      if (Q.isFinished() == true) {
-        Get.defaultDialog(
-          barrierDismissible: false, // Prevent tapping outside to dismiss
-              onWillPop: () async => false,
-          confirm: ElevatedButton(child: Text('restart'),onPressed: (){Q.Clear();score=0;Get.back();},),
-          title: 'Quiz Finished',
-        cancel: ElevatedButton(child: Text('Show Score'),onPressed: (){Get.defaultDialog(title: 'Score Obtained',content:Text('${score}/${Q.N}') );},),
-          content: Text('You\'ve reached the end of the quiz.'),
-        );
-        Q.Clear();
+  bool? userAnswer;
+  List<String> categories = ['Science', 'Sports', 'Technical', 'General'];
 
-        //TODO Step 4 Part D - empty out the scoreKeeper.
-        sc = [];
-      }
+  int score = 0; 
+  
+  void showScore() {
+  Get.defaultDialog(
+    title: 'Your Score',
+    middleText: 'Your current score is: $score',
+    onConfirm: () {
+      Get.back(); // Close the dialog
+    },
+    textConfirm: 'OK',
+  );
+}// Initialize score variable
 
-      //TODO: Step 6 - If we've not reached the end, ELSE do the answer checking steps below 👇
-      else {
-        if (userPickedAnswer == correctAnswer) {
-          sc.add(Icon(
-            Icons.check,
-            color: Colors.green,
-            
-          ));
-          score++;
-        } else {
-          sc.add(Icon(
-            Icons.close,
-            color: Colors.red,
-          ));
-        }
-        Q.nextQues();
-      }
-    });
-  }
+void checkAnswer(bool answer) {
+  setState(() {
+    // Check if the user's answer is correct
+    if (answer == quiz.getAnswer()) {
+      userAnswer = true; // Set userAnswer to true if correct
+      score++; // Increment score for correct answer
+    } else {
+      userAnswer = false; // Set userAnswer to false if incorrect
+    }
+
+    // Check if the quiz is finished
+    if (quiz.isFinished()) {
+      Get.defaultDialog(
+        title: 'Quiz Finished!',
+        middleText: 'You have completed the quiz. Your score is $score.',
+        onConfirm: () {
+          quiz.clear();
+          score = 0; // Reset score for the next quiz
+          Get.back();
+        },
+        textConfirm: 'Restart',
+      );
+    } else {
+      quiz.nextQues(); // Move to the next question
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          flex: 5,
-          child: Center(
-            child: Card(
-              shadowColor: Colors.grey,
-              child: Text(
-                Q.getQues(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
-            ),
-          ),
+    
+    return 
+      Scaffold(
+        appBar: AppBar(
+          title: const Text('Category Quiz'),
+          backgroundColor: Colors.orange,
         ),
-        TextButton(
-            style: TextButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.green),
-            onPressed: () {
-              checkAnswer(true);
-            },
-            child: Text(
-              'True',
-              style: TextStyle(fontSize: 20.0),
-            )),
-            SizedBox(height: 20,),
-        TextButton(
-            style: TextButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.red),
-            onPressed: () {
-              checkAnswer(false);
-            },
-            child: Text(
-              'False',
-              style: TextStyle(fontSize: 20.0),
-            )),
-        //TODO:add a score keeper
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(children: sc),
-        ),
-        Row(
+        body: Column(
           children: [
-            TextButton(
-              child: Icon(
-                Icons.clear_rounded,
-              ),
-              onPressed: () {
+            DropdownButton<String>(
+              value: quiz.getCurrentCategory(),
+              onChanged: (String? newValue) {
                 setState(() {
-                  sc.clear();
-                  Q.Clear();
-                  score=0;
+                  if (newValue != null) {
+                    quiz.setCategory(newValue);
+                  }
                 });
               },
+              items: categories.map<DropdownMenuItem<String>>((String category) {
+                return DropdownMenuItem<String>(
+                  value: category,
+                  child: Text(category),
+                );
+              }).toList(),
             ),
-            TextButton(child: Text('Show Score'),onPressed: (){Get.defaultDialog(
-              barrierDismissible: false, // Prevent tapping outside to dismiss
-              onWillPop: () async => false,
-              title: 'Score Obtained',content:Text('${score}/${Q.N}') );},)
+            const SizedBox(height: 20),
+            Expanded(
+              child: Center(
+                child: Text(
+                  quiz.getQues(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            if (userAnswer != null)
+              Text(
+                userAnswer! ? 'Correct!' : 'Incorrect!',
+                style: TextStyle(
+                  color: userAnswer! ? Colors.green : Colors.red,
+                  fontSize: 18,
+                ),
+              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  onPressed: () { checkAnswer(true);},
+                  child: const Text('True'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  onPressed: () {checkAnswer(false);},
+                  child: const Text('False'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            TextButton(onPressed:(){showScore();}, child:Text('Show Score'))
           ],
-        )
-      ],
+        ),
+      
     );
   }
 }
+
+

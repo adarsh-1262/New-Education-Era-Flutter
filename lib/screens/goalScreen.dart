@@ -22,33 +22,37 @@ class GoalsPage extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed:(){
         showDialog(context: context, builder:(BuildContext context)
-        {return AlertDialog(
-          content: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(labelText:'Enter Goal',
-                  border:OutlineInputBorder(borderRadius: BorderRadius.circular(5))),
-               controller: goalController, 
-              ),
-            Divider(thickness: 3,),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-              ElevatedButton(onPressed:(){Get.back();}, child:Text('Cancel'),style: ElevatedButton.styleFrom(foregroundColor:Colors.red),),
-              ElevatedButton(style: ElevatedButton.styleFrom(foregroundColor:Colors.green),
-                onPressed:(){goalsController.addGoal(goalController.text);Get.back();}, child:Text('Add')),],)
-            ],
-          )
+        {return Center(
+          child: Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  decoration: InputDecoration(labelText:'Enter Goal',
+                    border:OutlineInputBorder(borderRadius: BorderRadius.circular(5))),
+                 controller: goalController, 
+                ),
+              Divider(thickness: 3,),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                     ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor:Colors.green),
+                  onPressed:(){goalsController.addGoal(goalController.text);Get.back();}, child:Text('Add')),
+                ElevatedButton(onPressed:(){Get.back();}, child:Text('Cancel'),style: ElevatedButton.styleFrom(backgroundColor:Colors.red),),
+               ],)
+              ],
+            )
+          ),
         );});
         }),
       body: Column(
         children: [
 
-          Text('Goals to Acchieve',style: TextStyle(fontWeight: FontWeight.bold),),
+          Text('Goals to Achieve',style: TextStyle(fontWeight: FontWeight.bold),),
           SizedBox(height: 30,),
           if(goalsController.goals.isEmpty) Column(
             children: [
               Text('No Goals'),
-              Text('Click on Floating Button to add Goals')
+            
             ],
           ),
           

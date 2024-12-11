@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:learnly/Customs/roadmap.dart';
 import 'package:learnly/components/courses.dart';
 import 'package:learnly/controller/coursecontr.dart';
+import 'package:learnly/screens/Community.dart';
 import 'package:learnly/screens/QuizScreen.dart';
 import 'package:learnly/screens/VirtualTutor.dart';
 import 'package:learnly/screens/contactus.dart';
@@ -27,6 +28,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+   List<String> items=['Goals','Motivational Contents',
+    'Meditation','Community Forums','Scholarships',
+    'Online Tutoring',
+    'Stay healthy',
+    'Events','Competitons','FAQs'];
+
+    List<String> locations=['assets/images/goal.jpg','assets/images/moti.jpeg','assets/images/medi.jpg','assets/images/community.png'];
    void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -101,17 +109,80 @@ class _HomeState extends State<Home> {
         );
       
   }
+  Widget _buildJob()
 
+  { 
+    return Container(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                ),
+                itemCount: 4, // Number of grid items (can be changed as needed)
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      switch (items[index]) {
+  case 'Goals':
+    Get.to(GoalsPage());
+    break;
+  case 'Motivational Contents':
+    Get.to(MotivationalScreen());
+    break;
+    case 'Community Forums':
+    Get.to(ForumPage());
+    break;
+  default:
+    Get.to(() => MotivationalScreen());
+    break;
+}
+
+                    },
+                    child: Card(
+                      shadowColor: Colors.yellow,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              items[index],
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 10),
+                            SizedBox(height: 70,
+                                  child: Image.asset(locations[index]),),
+                           // Text('Learn more')
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            
+
+            // ListView for the rest of the items
+            
+            );
+          
+      
+      
+    
+            
+    }
   
 
 
 
   
   Widget _buildJobOpportunities() {
-    List<String> items=['Scholarships','Motivational Contents',
-    'Meditation','Community Forums','Online Tutoring',
-    'Stay healthy',
-    'Events','Competitons','FAQs'];
+   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -126,12 +197,22 @@ class _HomeState extends State<Home> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: items.length,
+          itemCount: items.length-4,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: (){if(items[index]=='Online Tutoring'){Get.to(VirtualClassesScreen());}
-              else if(items[index]=='Scholarships'){Get.to(ScholarshipScreen());}
-               else Get.to(MotivationalScreen());},
+              onTap: (){switch (items[index + 4]) {
+  case 'Online Tutoring':
+    Get.to(() => VirtualClassesScreen());
+    break;
+  case 'Scholarships':
+    Get.to(() => ScholarshipScreen());
+    break;
+    //case 'Events':
+  default:
+    Get.to(() => MotivationalScreen());
+    break;
+}
+},
               child: Column(
                 mainAxisAlignment:MainAxisAlignment.start,
                 children: [
@@ -152,7 +233,7 @@ class _HomeState extends State<Home> {
                                 children: [
                                   Text(items[index],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                                   SizedBox(height: 10,),
-                                  Text('Learn more')
+                                  
                                 ],
                               ),
                             ),
@@ -176,90 +257,124 @@ class _HomeState extends State<Home> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return 
-    SafeArea(
-      child: Scaffold(
-      
-          appBar: AppBar(
-            backgroundColor: Colors.orange,
-            
-            title: Center(child: Text('Learnly',style: TextStyle(fontSize: 30),)),),
-            drawer: Drawer(backgroundColor:Color.fromARGB(255, 37, 36, 36),
-            child: ListView(children: [DrawerHeader(
+  
+
+
+@override
+Widget build(BuildContext context) {
+  return SafeArea(
+    child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.orange,
+        title: Center(child: Text('Learnly', style: TextStyle(fontSize: 30))),
+      ),
+      drawer: Drawer(
+        backgroundColor: Color.fromARGB(255, 37, 36, 36),
+        child: ListView(
+          children: [
+            DrawerHeader(
               decoration: BoxDecoration(color: Color.fromARGB(255, 255, 134, 41)),
-              child:Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(child: CircleAvatar()),
                   Text('Jeniffer'),
-                  Text('xyz@gmail.com')
+                  Text('xyz@gmail.com'),
                 ],
-              ),),
-            ListTile(title: Text('Profile'),leading: Icon(Icons.person),onTap: (){Get.to(ProfileScreen());},),
-            Divider(thickness: 1,),
-            ListTile(title:Text('Quizzes'),leading:Icon(Icons.cast_for_education),onTap:(){Get.to(QuizPage());}),
-             Divider(thickness: 1,),
-            ListTile(title: Text('Roadmap'),leading: Icon(Icons.browser_updated),
-            
-              onTap:(){Get.to(RoadmapWebView(url: 'https://roadmap.sh/',titler: 'Roadmaps',));},),
-             Divider(thickness: 1,),
-            ListTile(title:Text('Resource Library'),leading:Icon(Icons.book),onTap:(){}),
-             Divider(thickness: 1,),
-            ListTile(title:Text('Offline Content'),leading:Icon(Icons.download),onTap:(){}),
-             Divider(thickness: 1,),
-              ListTile(title:Text('Contact Us'),leading: Icon(Icons.mail),onTap: (){Get.to(ContactScreen());  
-  },),
-  Divider(thickness: 2,color:Colors.black12,),
-  ListTile(title: Text('Goals'),onTap: (){Get.to(GoalsPage());},),
-  ListTile(title: Text('About Us'),onTap:(){Get.defaultDialog(title: "LearnLy",
-                      titleStyle: const TextStyle(fontSize: 20),
-                      content: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text("Learnly"),
-                      ),
-                      confirm: Expanded(
-                        child: ElevatedButton(
-                          onPressed: (){Get.back();} ,//AuthenticationRepository.instance.logout(),
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, side: BorderSide.none),
-                          child: const Text("ok"),
-                        ),
-                      ),);}
-  ),
-  SizedBox(height: 40,),
-  
-  Center(child: Text('Powered by @AJAX Developers'))
-              ],),),
-            body :SingleChildScrollView(
-              child:
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 15,),
-                    Container(
-                    
-                    height: MediaQuery.of(context).size.height/3,
-                    decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.orange,Colors.brown,Colors.grey],), boxShadow: [
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
+              ),
+            ),
+            ListTile(title: Text('Profile'), leading: Icon(Icons.person), onTap: () { Get.to(StudentDashboard()); }),
+            Divider(thickness: 1),
+            ListTile(title: Text('Quizzes'), leading: Icon(Icons.cast_for_education), onTap: () { Get.to(QuizApp()); }),
+            Divider(thickness: 1),
+            ListTile(title: Text('Roadmap'), leading: Icon(Icons.browser_updated), onTap: () { Get.to(RoadmapWebView(url: 'https://roadmap.sh/', titler: 'Roadmaps')); }),
+            Divider(thickness: 1),
+            ListTile(title: Text('Resource Library'), leading: Icon(Icons.book), onTap: () {}),
+            Divider(thickness: 1),
+            ListTile(title: Text('Offline Content'), leading: Icon(Icons.download), onTap: () {}),
+            Divider(thickness: 1),
+            ListTile(title: Text('Contact Us'), leading: Icon(Icons.mail), onTap: () { Get.to(ContactScreen()); }),
+            Divider(thickness: 2, color: Colors.black12),
+           
+            ListTile(title: Text('About Us'), onTap: () { Get.defaultDialog(title: "LearnLy", content: Text("Learnly")); }),
+            SizedBox(height: 40),
+            Center(child: Text('Powered by @AJAX Developers')),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 15),
+            Container(
+              height: MediaQuery.of(context).size.height / 3,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [Colors.orange, Colors.brown, Colors.grey]),
+                boxShadow: [
+                  BoxShadow(color: Colors.white.withOpacity(0.3), spreadRadius: 2, blurRadius: 10, offset: Offset(0, 5)),
+                ],
+              ),
+              child: Carousel(),
+            ),
+            _buildJob(),
+            Divider(thickness: 3,),
+            // Using GridView without wrapping in SingleChildScrollView
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('For Students',style: TextStyle(color: Colors.green,fontSize: 20),),
+
+            ),
+            // Handling remaining items
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: items.length - 4, // Remaining items
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    if (items[index + 4] == 'Online Tutoring') {
+                      Get.to(VirtualClassesScreen());
+                    } else if (items[index + 4] == 'Scholarships') {
+                      Get.to(ScholarshipScreen());
+                    } else {
+                      Get.to(MotivationalScreen());
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      Card(
+                        shadowColor: Colors.yellow,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(items[index + 4], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                    SizedBox(height: 10),
+                                    Text('Learn more'),
+                                  ],
+                                ),
+                              ),
+                              Container(color: Colors.grey),
+                            ],
                           ),
-                        ],),
-                    child: Carousel(),),
-                    _buildJobOpportunities(),
-                  ]
+                        ),
                       ),
-              
+                      SizedBox(height: 10),
+                    ],
+                  ),
+                );
+              },
             ),
-            ),
-    );
-            
-
-     
-        
-  }
+          ],
+        ),
+      ),
+    ),
+  );
 }
-
+}
