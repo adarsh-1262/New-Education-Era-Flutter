@@ -34,21 +34,20 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 50,),
-            Container(height: MediaQuery.of(context).size.height/3,
-              child: Center(child: Column(
-            mainAxisAlignment:MainAxisAlignment.center,
-            children: [
-              Card(elevation: 10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-                child: Container(child: Image.asset('assets/images/logo.jpg',scale: 3,))),
-              
-              AnimatedTextKit(animatedTexts: [TypewriterAnimatedText('Learnly',textStyle:TextStyle(fontSize: 48,fontWeight:FontWeight.bold))],),
-            ],
-                    )),
-            decoration:BoxDecoration(gradient:LinearGradient(colors: [Colors.pink,Colors.orange,Colors.red])) ,
-            ),
+            Padding( 
+			padding: const EdgeInsets.only(top: 110.0), 
+			child: Center( 
+				child: Container( 
+					width: 200, 
+					height: 160, 
+					decoration: BoxDecoration( 
+						color: Colors.red, 
+						borderRadius: BorderRadius.circular(10.0)),
+					child: Image.asset('assets/images/learnly.png')
+          ), 
+			), 
+      
+			), 
             SizedBox(height:100,),
             
             TextField(controller: email,

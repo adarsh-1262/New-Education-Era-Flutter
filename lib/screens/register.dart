@@ -19,31 +19,42 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Expanded(flex: 1,
-          child: Container(child: Center(child: Column(
-          mainAxisAlignment:MainAxisAlignment.center,
-          children: [
-            Card(elevation: 7,
-            shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
-  ),
-              child: Container(child: Image.asset('assets/images/logo.jpg',scale: 3,))),
-            AnimatedTextKit(animatedTexts: [TypewriterAnimatedText('Learnly',textStyle:TextStyle(fontSize: 48,fontWeight:FontWeight.bold),cursor: '|')],),
-          ],
-        )),
-          decoration:BoxDecoration(gradient:LinearGradient(colors: [Colors.blue,Colors.green,Colors.yellow])) ,),),
+        Padding( 
+			padding: const EdgeInsets.only(top: 110.0), 
+			child: Center( 
+				child: Container( 
+					width: 200, 
+					height: 160, 
+					decoration: BoxDecoration( 
+						color: Colors.red, 
+						borderRadius: BorderRadius.circular(10.0)),
+					child: Image.asset('assets/images/learnly.png')
+          ), 
+			), 
+      
+			), 
+     
         SizedBox(height: 20,),
-        TextField(controller: emailC,
-          decoration: InputDecoration(labelText: 'Enter Email',border: OutlineInputBorder()
-        )),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(controller: emailC,
+            decoration: InputDecoration(labelText: 'Enter Email',border: OutlineInputBorder()
+          )),
+        ),
         SizedBox(height: 20,),
-        TextField(controller: passwordC,
-        obscureText: false,
-          decoration: InputDecoration(labelText: 'Enter Password',border: OutlineInputBorder())),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(controller: passwordC,
+          obscureText: false,
+            decoration: InputDecoration(labelText: 'Enter Password',border: OutlineInputBorder())),
+        ),
           SizedBox(height: 15,),
-        TextField(controller: passwordC2,
-        obscureText: true,
-          decoration: InputDecoration(labelText: 'Confirm Password',border: OutlineInputBorder())),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(controller: passwordC2,
+          obscureText: true,
+            decoration: InputDecoration(labelText: 'Confirm Password',border: OutlineInputBorder())),
+        ),
         SizedBox(height: 20,),
         Button(color: Colors.green,
           name:'Register',onTap: ()async{
