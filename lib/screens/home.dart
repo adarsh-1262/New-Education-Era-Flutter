@@ -6,8 +6,10 @@ import 'package:learnly/controller/coursecontr.dart';
 import 'package:learnly/screens/Community.dart';
 import 'package:learnly/screens/QuizScreen.dart';
 import 'package:learnly/screens/VirtualTutor.dart';
+import 'package:learnly/screens/about.dart';
 import 'package:learnly/screens/contactus.dart';
 import 'package:learnly/screens/events.dart';
+import 'package:learnly/screens/faq.dart';
 import 'package:learnly/screens/goalScreen.dart';
 import 'package:learnly/screens/meditation.dart';
 import 'package:learnly/screens/motivation.dart';
@@ -16,6 +18,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:learnly/Customs/roadmap.dart';
+import 'package:learnly/screens/resource.dart';
 import 'package:learnly/screens/scholarship.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
@@ -34,7 +37,7 @@ class _HomeState extends State<Home> {
     'Meditation','Community Forums','Scholarships',
     'Online Tutoring',
     'Stay healthy',
-    'Events','Competitons','FAQs'];
+    'Events','FAQs'];
 
     List<String> locations=['assets/images/goal.jpg','assets/images/moti.jpeg','assets/images/medi.jpg','assets/images/community.png'];
    void _launchURL(String url) async {
@@ -183,83 +186,7 @@ class _HomeState extends State<Home> {
 
 
   
-  Widget _buildJobOpportunities() {
-   
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(16),
-          child: Text(
-            'EXCLUSIVELY FOR STUDENTS',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.green),
-          ),
-        ),
-            
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: items.length-4,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: (){switch (items[index + 4]) {
-  case 'Online Tutoring':
-    Get.to(() => VirtualClassesScreen());
-    break;
-  case 'Scholarships':
-    Get.to(() => ScholarshipScreen());
-    break;
-  case 'Events':
-   Get.to(EventScreen());
-   break;
-  default:
-    Get.to(() => MotivationalScreen());
-    break;
-}
-},
-              child: Column(
-                mainAxisAlignment:MainAxisAlignment.start,
-                children: [
-                  Card(
-                     shadowColor: Colors.yellow,
-                    child:  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                            
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(items[index],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                  SizedBox(height: 10,),
-                                  
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(decoration: BoxDecoration(shape: BoxShape.rectangle,color: Colors.grey),)
-                        ],
-                      ),
-                    ),
-                  
-                    
-                    ),
-                    SizedBox(height: 10,)
-                ],
-              ),
-              );
-            
-                
-          },
-        ),
-      ],
-    );
-  }
+ 
 
   
 
@@ -273,34 +200,69 @@ Widget build(BuildContext context) {
         title: Center(child: Text('Learnly', style: TextStyle(fontSize: 30))),
       ),
       drawer: Drawer(
-        backgroundColor: Color.fromARGB(255, 37, 36, 36),
+        backgroundColor: Color.fromARGB(255, 221, 197, 197),
         child: ListView(
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 255, 134, 41)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(child: CircleAvatar()),
-                  Text('Jeniffer'),
-                  Text('xyz@gmail.com'),
-                ],
-              ),
-            ),
+  decoration: BoxDecoration(
+    gradient: LinearGradient(
+      colors: [Color(0xFFFF8A00), Color(0xFFFFC837)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+  ),
+  child: Column(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      // Circular avatar with styling
+      CircleAvatar(
+        radius: 30,
+        backgroundImage: NetworkImage(
+          'https://example.com/profile_image.jpg', // Replace with an actual image URL
+        ),
+      ),
+      SizedBox(height: 12), // Add spacing between avatar and text
+      // Name with styling
+      Text(
+        'Jennifer',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      SizedBox(height: 4), // Add slight spacing between name and email
+      // Email with styling
+      Text(
+        'xyz@gmail.com',
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.white70,
+        ),
+      ),
+      SizedBox(height: 8),
+      // Decorative button or action
+      
+    ],
+  ),
+),
+
             ListTile(title: Text('Profile'), leading: Icon(Icons.person), onTap: () { Get.to(StudentDashboard()); }),
             Divider(thickness: 1),
             ListTile(title: Text('Quizzes'), leading: Icon(Icons.cast_for_education), onTap: () { Get.to(QuizApp()); }),
             Divider(thickness: 1),
             ListTile(title: Text('Roadmap'), leading: Icon(Icons.browser_updated), onTap: () { Get.to(RoadmapWebView(url: 'https://roadmap.sh/', titler: 'Roadmaps')); }),
             Divider(thickness: 1),
-            ListTile(title: Text('Resource Library'), leading: Icon(Icons.book), onTap: () {}),
+            ListTile(title: Text('Resource Library'), leading: Icon(Icons.book), onTap: () {Get.to(ResourceLibraryScreen());}),
             Divider(thickness: 1),
             ListTile(title: Text('Offline Content'), leading: Icon(Icons.download), onTap: () {}),
             Divider(thickness: 1),
             ListTile(title: Text('Contact Us'), leading: Icon(Icons.mail), onTap: () { Get.to(ContactScreen()); }),
             Divider(thickness: 2, color: Colors.black12),
            
-            ListTile(title: Text('About Us'), onTap: () { Get.defaultDialog(title: "LearnLy", content: Text("Learnly")); }),
+            ListTile(title: Text('About Us'), onTap: () { Get.to(AboutScreen()); }),
             SizedBox(height: 40),
             Center(child: Text('Powered by @AJAX Developers')),
           ],
@@ -342,6 +304,7 @@ Widget build(BuildContext context) {
                     } else if (items[index + 4] == 'Scholarships') {
                       Get.to(ScholarshipScreen());
                     }else if(items[index+4]=='Events') Get.to(EventScreen());
+                    else if(items[index+4]=='FAQs' )  Get.to(FAQPage());
                      else {
                       Get.to(MotivationalScreen());
                     }

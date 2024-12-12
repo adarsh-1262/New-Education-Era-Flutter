@@ -34,7 +34,7 @@ class _ScholarshipScreenState extends State<ScholarshipScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Scholarships in India"),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.orange,
         centerTitle: true,
       ),
       body: ListView.builder(
@@ -69,6 +69,7 @@ class ScholarshipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Color.fromARGB(255, 163, 176, 182),
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

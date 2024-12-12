@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnly/components/courses.dart';
 import 'package:learnly/controller/coursecontr.dart';
+import 'package:learnly/screens/home.dart';
 
 
 class CourseSelectionPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _CourseSelectionPageState extends State<CourseSelectionPage> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text('Select Courses'),
             IconButton(onPressed:(){
@@ -26,17 +28,18 @@ class _CourseSelectionPageState extends State<CourseSelectionPage> {
             content: Column(
               children: selected.map((course) => Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(color: Colors.red[300],
-                width: MediaQuery.of(context).size.width,
+                child: Card(color: Colors.red[300],
+                
                   child: Text(course?.courseName)),
               )).toList(),
             ),
+            cancel: ElevatedButton(onPressed:(){Get.back();}, child:Text('Back')),
             confirm: ElevatedButton(
-              onPressed: () => Get.back(),
-              child: Text('Close'),
+              onPressed: (){Get.to(Home());},
+              child: Text('Submit'),
             ),
           );
-            }, icon:Icon(Icons.shopping_bag))
+            }, icon:Icon(Icons.shopping_cart))
           ],
         ),
 
@@ -76,7 +79,8 @@ class _CourseSelectionPageState extends State<CourseSelectionPage> {
               ),
             );
           },
-        );})
+        );
+        })
     
     );
   }

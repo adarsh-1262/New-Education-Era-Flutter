@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:learnly/screens/coursescreen.dart";
 import "package:learnly/screens/home.dart";
 import "package:shared_preferences/shared_preferences.dart";
 class UserScreen extends StatefulWidget {
@@ -86,7 +87,9 @@ class _UserScreenState extends State<UserScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: (){_submitForm;Get.to(Home());},
+                onPressed: (){_submitForm;
+                Get.to(CourseSelectionPage());
+                },
                 child: Text('Submit'),
               ),
             ],

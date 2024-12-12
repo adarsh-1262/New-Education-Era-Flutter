@@ -28,7 +28,7 @@ class VirtualClassesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Virtual Classes"),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.orange,
       ),
       body: ListView.builder(
         itemCount: classes.length,

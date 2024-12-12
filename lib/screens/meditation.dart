@@ -31,18 +31,21 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: 20),
               Card(
-                color: Colors.grey,
-                elevation: 5,
-                child: Text(
-                  'Meditation is a powerful tool to reduce stress and increase focus. Here are some ways to meditate:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+                color: Colors.blueGrey,
+                elevation: 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Meditation is a powerful tool to reduce stress and increase focus. Here are some ways to meditate:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -136,35 +139,47 @@ class _MindfulBreathingScreenState extends State<MindfulBreathingScreen> {
             Card(
               color: Colors.grey,
               elevation: 5,
-              child: Text(
-                'Find a quiet and comfortable place to sit or lie down',
-                style: TextStyle(fontSize: 18),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Find a quiet and comfortable place to sit or lie down',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
             SizedBox(height: 20),
             Card(
               color: Colors.grey,
               elevation: 5,
-              child: Text(
-                'Close your eyes and take a deep breath in through your nose',
-                style: TextStyle(fontSize: 18),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Close your eyes and take a deep breath in through your nose',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
             SizedBox(height: 20),
             Card(
               color: Colors.grey,
               elevation: 5,
-              child: Text(
-                'Hold your breath for a few seconds',
-                style: TextStyle(fontSize: 18),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Hold your breath for a few seconds',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
             SizedBox(height: 20),
             Card(
               color: Colors.grey,
-              child: Text(
-                'Slowly exhale through your mouth',
-                style: TextStyle(fontSize: 18),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Slowly exhale through your mouth',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
             SizedBox(height: 20),

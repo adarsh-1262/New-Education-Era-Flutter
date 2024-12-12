@@ -62,31 +62,42 @@ class _MotivationalScreenState extends State<MotivationalScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 20),
-              Text(
-                currentQuote,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey[700],
+              Card(
+                elevation: 20,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    currentQuote,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey[700],
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 30),
-              DropdownButton<String>(
-                value: currentCategory,
-                items: quotes.keys.map((category) {
-                  return DropdownMenuItem(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    currentCategory = value!;
-                    currentQuote =
-                        "Tap the button to get inspired by $currentCategory quotes!";
-                  });
-                },
+              Container(
+                color: Color.fromARGB(255, 117, 110, 50),
+                child: Card(
+                  child: DropdownButton<String>(
+                    value: currentCategory,
+                    items: quotes.keys.map((category) {
+                      return DropdownMenuItem(
+                        value: category,
+                        child: Text(category),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        currentCategory = value!;
+                        currentQuote =
+                            "Tap the button to get inspired by $currentCategory quotes!";
+                      });
+                    },
+                  ),
+                ),
               ),
               SizedBox(height: 20),
               ElevatedButton(

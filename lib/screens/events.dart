@@ -13,7 +13,7 @@ class _EventScreenState extends State<EventScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Events for Students up to 12th'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.yellow,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -32,7 +32,7 @@ class _EventScreenState extends State<EventScreen> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: 20),
@@ -40,6 +40,7 @@ class _EventScreenState extends State<EventScreen> {
                 child: ListView(
                   children: [
                     ListTile(
+                      tileColor: Colors.blueGrey,
                       title: Text('Science Fair'),
                       subtitle: Text('Date: 15th March, Time: 10:00 AM'),
                       trailing: Icon(Icons.arrow_forward),
@@ -50,7 +51,9 @@ class _EventScreenState extends State<EventScreen> {
                         );
                       },
                     ),
+                    SizedBox(height: 20,),
                     ListTile(
+                      tileColor: Colors.blueGrey,
                       title: Text('Math Olympiad'),
                       subtitle: Text('Date: 20th March, Time: 2:00 PM'),
                       trailing: Icon(Icons.arrow_forward),
@@ -61,7 +64,9 @@ class _EventScreenState extends State<EventScreen> {
                         );
                       },
                     ),
+                    SizedBox(height: 20,),
                     ListTile(
+                      tileColor: Colors.blueGrey,
                       title: Text('Coding Competition'),
                       subtitle: Text('Date: 25th March, Time: 10:00 AM'),
                       trailing: Icon(Icons.arrow_forward),
@@ -69,7 +74,9 @@ class _EventScreenState extends State<EventScreen> {
                         
                       },
                     ),
+                    SizedBox(height: 20,),
                     ListTile(
+                      tileColor: Colors.blueGrey,
                       title: Text('Debate Competition'),
                       subtitle: Text('Date: 30th March, Time: 2:00 PM'),
                       trailing: Icon(Icons.arrow_forward),

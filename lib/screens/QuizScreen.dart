@@ -84,10 +84,16 @@ void checkAnswer(bool answer) {
             const SizedBox(height: 20),
             Expanded(
               child: Center(
-                child: Text(
-                  quiz.getQues(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                child: Card(
+                  color: Color.fromARGB(255, 201, 142, 142),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      quiz.getQues(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -102,20 +108,27 @@ void checkAnswer(bool answer) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                  onPressed: () { checkAnswer(true);},
-                  child: const Text('True'),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                    onPressed: () { checkAnswer(true);},
+                    child: const Text('True'),
+                  ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  onPressed: () {checkAnswer(false);},
-                  child: const Text('False'),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    onPressed: () {checkAnswer(false);},
+                    child: const Text('False'),
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            TextButton(onPressed:(){showScore();}, child:Text('Show Score'))
+            Container(
+              child: Card(color: Colors.orange,
+                child: TextButton(onPressed:(){showScore();}, child:Text('Show Score'))),
+            )
           ],
         ),
       
