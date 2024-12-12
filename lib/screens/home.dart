@@ -7,7 +7,9 @@ import 'package:learnly/screens/Community.dart';
 import 'package:learnly/screens/QuizScreen.dart';
 import 'package:learnly/screens/VirtualTutor.dart';
 import 'package:learnly/screens/contactus.dart';
+import 'package:learnly/screens/events.dart';
 import 'package:learnly/screens/goalScreen.dart';
+import 'package:learnly/screens/meditation.dart';
 import 'package:learnly/screens/motivation.dart';
 import 'package:learnly/screens/profile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -137,7 +139,7 @@ class _HomeState extends State<Home> {
     Get.to(ForumPage());
     break;
   default:
-    Get.to(() => MotivationalScreen());
+    Get.to(() => MeditationScreen());
     break;
 }
 
@@ -207,7 +209,9 @@ class _HomeState extends State<Home> {
   case 'Scholarships':
     Get.to(() => ScholarshipScreen());
     break;
-    //case 'Events':
+  case 'Events':
+   Get.to(EventScreen());
+   break;
   default:
     Get.to(() => MotivationalScreen());
     break;
@@ -337,7 +341,8 @@ Widget build(BuildContext context) {
                       Get.to(VirtualClassesScreen());
                     } else if (items[index + 4] == 'Scholarships') {
                       Get.to(ScholarshipScreen());
-                    } else {
+                    }else if(items[index+4]=='Events') Get.to(EventScreen());
+                     else {
                       Get.to(MotivationalScreen());
                     }
                   },

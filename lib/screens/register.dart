@@ -83,7 +83,8 @@ class RegisterScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Already have account ?'),
+            Text('Already have account ?'), 
+            
             SizedBox(width: 10,),
             InkWell(child: Text('Login',style: TextStyle(
               color: Colors.red
